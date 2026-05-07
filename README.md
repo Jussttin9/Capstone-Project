@@ -12,13 +12,13 @@ By addressing this problem, we can match the health factors and lifestyle patter
 Since we're trying to determine whether a person has, or is at risk of diabetes or not, this is a classification problem. By the end of this project, I expect my model to be able to successfully return a binary decision, indicating whether a person has--or is at risk of--diabetes, or no diabetes. 
 
 ## Data Acquisition and Exploratory Data Analysis
-The data I plan to use to train my models is the UC Irvine CDC Diabetes Health Indicators dataset [[1]](#1). It was funded by the Centers for Disease Control and Prevention (CDC). It contains numerous health indicators, such as high blood pressure and high cholesterol, as well as lifestyle factors, such as the amount of physical activity and whether the individual is a smoker. It also includes demographics and personal information, such as sex, income, and education.
+The data I plan to use to train my models is the UC Irvine CDC Diabetes Health Indicators dataset [[1]](#1). It was funded by the Centers for Disease Control and Prevention (CDC). It contains numerous health indicators, such as high blood pressure and high cholesterol, as well as lifestyle factors, such as the amount of physical activity and whether the individual is a smoker. It also includes demographics and personal information, such as sex, income, and education. Because this dataset is imbalanced, I applied SMOTE to the dataset and will use that dataset for EDA and modeling.
 
 Below shows a bar graph, plotting all available binary features and their risk difference (risk of diabetes with this feature - risk of diabetes without this feature)
 
 ![Binary Risk Difference](plots/binary-feature-diabetes-risk.png)
 
-From the plot above, we can see that people with high blood pressure and high cholesterol both have around a 15-17% increased risk of getting diabetes. In terms of medical history and lifestyle, people who have had a stroke, heart disease, heart attack, and people who have difficulty walking all have around a 17-20% increased risk in getting diabetes. On the other hand, those who have participated in physical activity and those who don't consume heavy amounts of alcohol actually have around a 10% decreased risk in getting diabetes. This clearly shows that there are definitely some factors that contribute to the likelihood of an individual getting diabetes.
+From the plot above, we can see that people with high blood pressure and high cholesterol both have around a 15-17% increased risk of getting diabetes. In terms of medical history and lifestyle, people who have had a heart disease, heart attack, and people who have difficulty walking all have around a 17-20% increased risk in getting diabetes. On the other hand, those who have participated in physical activity and those who don't consume heavy amounts of alcohol actually have around a 25-30% decreased risk in getting diabetes. This clearly shows that there are definitely some factors that contribute to the likelihood of an individual getting diabetes.
 
 Below are the stacked bar charts for income, education, and general health features. For context, on the income feature scale, the higher the number, the higher the income, ranging from less than $10,000 a year to $75,000 or more a year. For education, the higher the number, the higher the education, ranging from never attended school / kindergarden to college graduate. For general health, 1 means the individual believes their general health is very healthy whilst 5 means they believe they are very unhealthy.
 
@@ -26,7 +26,7 @@ Below are the stacked bar charts for income, education, and general health featu
 ![Proportion of Diabetes Status by Education](plots/education-diabetes-proportion.png)
 ![Proportion of Diabetes Status by General Health](plots/genhlth-diabetes-proportion.png)
 
-There are some clear trends when observing these plots. A larger proportion of those with a lower annual income seem to have diabetes. Similarly, those with less education also seem to have a larger proportion in which individuals have diabetes. This could be possibly due to the correlation between education and income. Individuals who have a lower income will more likely not have as much access to healthier foods, which are typically more expensive, as well as healthcare, which could allow people to monitor their health. For general health, as expected, there's a large proportion of people with diabetes who perceive their overall health to be poor, with 37.9% of participants who rated their general health as a 5 ended up having diabetes.
+There are some clear trends when observing these plots. A larger proportion of those with a lower annual income seem to have diabetes. Similarly, those with less education also seem to have a larger proportion in which individuals have diabetes. This could be possibly due to the correlation between education and income. Individuals who have a lower income will more likely not have as much access to healthier foods, which are typically more expensive, as well as healthcare, which could allow people to monitor their health. For general health, as expected, there's a large proportion of people with diabetes who perceive their overall health to be poor, with 59.2% of participants who rated their general health as a 5 ended up having diabetes.
 
 In addition to the original features, I've feature engineered some new columns to showcase the impact between different metrics with high correlation, illustrated in the heatmap shown below. In addition, below is an example of a plot between an engineered column, physical frailty, which combines general health, difficulty walking, and physical health.
 
@@ -34,7 +34,7 @@ In addition to the original features, I've feature engineered some new columns t
 
 ![Diabetes Risk vs Physical Frailty](plots/physical-frailty-diabetes-risk.png)
 
-The left end of the spectrum represents individuals who have excellent general health, have no difficulty walking, and have had no bad physical health days. On the other end, the right end of the x-axis represents individuals who have poor general health, have difficulty walking, and have had 30 days of poor physical health. As depicted in the graph above, the more physically frail an individual is, the higher the risk of getting diabetes, going all the way up to around 36% increased risk.
+The left end of the spectrum represents individuals who have excellent general health, have no difficulty walking, and have had no bad physical health days. On the other end, the right end of the x-axis represents individuals who have poor general health, have difficulty walking, and have had 30 days of poor physical health. As depicted in the graph above, the more physically frail an individual is, the higher the risk of getting diabetes, going all the way up to around 60% increased risk.
 
 After visualizing the relationship between the features in this dataset with the target variable, as well as the correlation between the features themselves, it's clear that there are some patterns that can be utilized to determine whether a person probably has or is at risk of diabetes or not.
 
@@ -52,7 +52,7 @@ Finally, I standardized all the features using a standard scalar to prevent any 
 
 ## Modeling
 
-Since this dataset contains imbalanced classes (most samples are labeled as non-diabetic) I need to use a model that performs well with imbalanced data such as decision trees, make the majority class hold less weight by adding class weights to models such as logistic regression and SVM, and add synthetic samples by applying SMOTE (Synthetic Minority Over-sampling Technique), which allows me to create fake but educated samples to help balance out the classes. By applying SMOTE, I’d be able to experiment with different models without having to worry about the class imbalance affecting or skewing the results of the model during training and testing. 
+Since this dataset contains imbalanced classes (most samples are labeled as non-diabetic) I need to use a model that performs well with imbalanced data such as decision trees and MLP models, make the majority class hold less weight by adding class weights to models such as logistic regression, and add synthetic samples by applying SMOTE (Synthetic Minority Over-sampling Technique), which allows me to create fake but educated samples to help balance out the classes. By applying SMOTE, I’d be able to experiment with different models without having to worry about the class imbalance affecting or skewing the results of the model during training and testing. 
 
 ## Model Evaluation
 
@@ -65,16 +65,20 @@ Starting off with the baseline model, which is just a logistic regression model 
 **Classification Report:**
 | diabetes? | precision | recall | f1-score |
 | :-------: | :-------: | :----: | :------: |
-| 0         | 0.86      | 0.98   | 0.92     |
-| 1         | 0.54      | 0.15   | 0.24     |
+| 0         | 0.73      | 0.71   | 0.72     |
+| 1         | 0.72      | 0.74   | 0.73     |
 
 **Confusion Matrix:**
-|               | Predicted: 0 | Predicted: 1 |
+|               | Predicted: No Diabetes (0) | Predicted: Diabetes (1) |
 | :------------ | :----------: | :----------: |
-| **Actual: 0** | 37995 (TN)   | 921 (FP)     |
-| **Actual: 1** | 5940 (FN)    | 1079 (TN)    |
+| **Actual: No Diabetes (0)** | 27504 (TP)   | 11372 (FP)   |
+| **Actual: Diabetes (1)** | 9988 (FN)    | 28887 (TN)   |
 
-Overall, this seems like a good start if you're looking solely on the cross-validation score. But after analyzing the reports, it reveals that this model actually performs extremely poorly when it comes to detecting diabetes, indicated by a recall score of 0.15 and a false negative rate of ~84.6%. This poor prediction rate is most likely due to the imbalanced classes. There wasn't enough data on diabetic participants, so it formed a bias towards non-diabetic samples.
+Based on the scores above, this seems like a good start if you're looking solely on the cross-validation score. But after analyzing the reports, it reveals that this model still misses a decent amount of diabetic cases, missing around ~25.6% of cases. Although it seems like a low number, this is still quite poor performance since it's missing over a quarter of cases.
+
+Although not as urgent, this model still misses ~29.3% of non-diabetic cases, incorrectly predicting a participant had diabetes when they actually didn't.
+
+When training and fitting models, the main goal is to minimize the amount of false negatives while also hoping to minimize false positives as well to ensure highest accuracy.
 
 ### * Future Model Evaluations TBD *
 
