@@ -14,6 +14,21 @@ Since we're trying to determine whether a person has, or is at risk of diabetes 
 ## Data Acquisition and Exploratory Data Analysis
 The data I plan to use to train my models is the UC Irvine CDC Diabetes Health Indicators dataset [[2]](#1). It was funded by the Centers for Disease Control and Prevention (CDC). It contains numerous health indicators, such as high blood pressure and high cholesterol, as well as lifestyle factors, such as the amount of physical activity and whether the individual is a smoker. It also includes demographics and personal information, such as sex, income, and education. Because this dataset is imbalanced, I applied SMOTE to the dataset and will use that dataset for EDA and modeling.
 
+Below are the plots to observing outliers for select features, `BMI`, `GenHlth`, `MentHlth`, `PhysHlth`.
+
+![BMI Box Plot](/plots/bmi-box-plot.png)
+![GenHlth Box Plot](/plots/genhtlh-box-plot.png)
+![MentHlth Box Plot](/plots/menthtlh-box-plot.png)
+![PhysHlth Box Plot](/plots/physhlth-box-plot.png)
+
+Analyzing these plots reveals some interesting information about the data. 
+
+To start, the graph plotting `PhysHlth` shows that those who are labeled to have diabetes has a higher variance compared to those who don't have diabetes, with the 75th percentile reaching to 15 days amongst participants with diabetes. Meanwhile there seems to be a bunch of "outliers" in the other group, but it's because the 75th percentile amongst those without diabetes goes up to only 3 with its upper fence at 7, indicating that those without diabetes typically have significantly less poor physical health days.
+
+The trend is similar amongst the `BMI` and `GenHlth` plots as the group with diabetes had a slightly higher distribution compared to the group without diabetes. This indicates that those with a higher BMI and lower perception of one's general health status are more prevalent amongst those with diabetes.
+
+For `MentHlth` both groups have the same lower bound but the group with diabetes had a slightly wider spread, with the 75th quartile at 3 and an upper fence of 7. This means most points above 7 poor mental health days are considered abnormal based on the data.
+
 Below shows a bar graph, plotting all available binary features and their risk difference (risk of diabetes with this feature - risk of diabetes without this feature)
 
 ![Binary Risk Difference](plots/binary-feature-diabetes-risk.png)
