@@ -87,7 +87,7 @@ There are some clear trends when observing these plots. A larger proportion of t
 
 In terms of BMI, the graph plotting those who had diabetes is slightly shifted to the right compared to the graph plotting those who did not have diabetes. This shows that people with diabetes typically have higher BMIs than those who don't. When looking at the physical and mental health of participants, most people fall into the 0 (0 bad physical and mental days) or 30 (30 days of bad physical and mental days) category. In the plot, out of the people who had 0 bad physical and mental days, there were more people without diabetes compared to those who had it. The opposite is true when you look at those who had a full month's worth of bad physical and mental days.
 
-![Age Line Plot](/plots/before-smote/age-line-plot.png)
+![Age Line Plot](plots/before-smote/age-line-plot.png)
 
 Finally, plotting the age feature, shown in the figure above, signifies that the probability of getting diabetes increases as people get older. There is a slight drop after the peak at the 11 group (participants ages 70-74). This is likely because people who have diabetes statistically tend to not live as long.
 
@@ -121,7 +121,7 @@ The left end of the spectrum represents individuals who have excellent general h
 
 The final feature is BMI_Inactive, which combines a person's BMI and the inverse of the PhysActivity feature. If a person's BMI is higher AND they aren't doing any physical activity to keep their bodily functions healthy, it's expected to increase the risk since the individual's overall health will most likely decrease as this behavior continues [[5]](#5).
 
-![Diabetes Risk vs BMI_Inactive](/plots/engineered-features/bmi-physical-activity.png)
+![Diabetes Risk vs BMI_Inactive](plots/engineered-features/bmi-physical-activity.png)
 
 There seems to be a significant gap in the risk of getting diabetes between those who do physical activity and those who don't. The gap starts to increase as BMI increases, indicating that those who have a high BMI and those who don't do any physical activity have a significantly higher risk compared to those who do physical activity.
 
