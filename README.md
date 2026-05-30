@@ -54,10 +54,10 @@ The data I plan to use to train my models is the UC Irvine CDC Diabetes Health I
 
 Below are the plots to observing outliers for select features, `BMI`, `GenHlth`, `MentHlth`, `PhysHlth`.
 
-![BMI Box Plot](/plots/before-smote//bmi-box-plot.png)
-![GenHlth Box Plot](/plots/before-smote/genhlth-box-plot.png)
-![MentHlth Box Plot](/plots/before-smote/menthlth-box-plot.png)
-![PhysHlth Box Plot](/plots/before-smote/physhlth-box-plot.png)
+![BMI Box Plot](plots/before-smote//bmi-box-plot.png)
+![GenHlth Box Plot](plots/before-smote/genhlth-box-plot.png)
+![MentHlth Box Plot](plots/before-smote/menthlth-box-plot.png)
+![PhysHlth Box Plot](plots/before-smote/physhlth-box-plot.png)
 
 Analyzing these plots reveals some interesting information about the data. 
 
