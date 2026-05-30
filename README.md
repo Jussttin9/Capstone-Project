@@ -1,11 +1,12 @@
 # Diabetes Predictor Final Report
 
 ## Relevant Links
-[Capstone Report](Capstone_Report.pdf)
+- [Capstone Report](Capstone_Report.pdf)
 
-[Notebook](capstone.ipynb)
+- [Notebook](capstone.ipynb)
+   - NOTE: GitHub seems to have trouble rendering Jupyter Notebooks right now, so please download the notebook to see the code!
 
-[Dataset](https://doi.org/10.24432/C53919)
+- [Dataset](https://doi.org/10.24432/C53919)
 
 
 ## Business Understanding and Problem Statement
